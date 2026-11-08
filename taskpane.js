@@ -387,8 +387,27 @@
   }
 
   function zeigeErkennung() {
-    var da = typeof window.SpeechRecognition === "function" || typeof window.webkitSpeechRecognition === "function";
+    var erkennung = window.SpeechRecognition;
+    var da = typeof erkennung === "function" || typeof window.webkitSpeechRecognition === "function";
+    var anfrage;
     schreibe("ergebnis-erkennung", da ? "Ja (vorhanden, nicht gestartet)" : "Nein");
+    /* Nur nachfragen, nicht installieren: available() lädt nichts und nimmt nichts auf. */
+    if (typeof erkennung !== "function" || typeof erkennung.available !== "function") {
+      schreibe("ergebnis-erkennung-lokal", "Nein (Abfrage fehlt in dieser Webansicht)");
+      return;
+    }
+    try {
+      anfrage = erkennung.available({ langs: ["de-DE"], processLocally: true });
+    } catch (fehler) {
+      schreibe("ergebnis-erkennung-lokal", "Nein (" + fehlerText(fehler) + ")");
+      return;
+    }
+    Promise.resolve(anfrage).then(function (stand) {
+      var texte = { available: "Ja, das Modell ist schon da", downloadable: "Ja, nach einmaligem Laden des Modells", downloading: "Ja, das Modell lädt gerade", unavailable: "Nein" };
+      schreibe("ergebnis-erkennung-lokal", texte[stand] || ("Unklar (" + String(stand) + ")"));
+    }, function (fehler) {
+      schreibe("ergebnis-erkennung-lokal", "Nein (" + fehlerText(fehler) + ")");
+    });
   }
 
   /* Start */
