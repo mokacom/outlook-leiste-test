@@ -100,6 +100,31 @@
     <p id="mikrofon-status" class="hinweis" role="status"></p>
   </section>
 
+  <section aria-labelledby="titel-stimme">
+    <h2 id="titel-stimme">Stimme und Spracherkennung</h2>
+    <p>Prüft nur, was diese Webansicht kann. Es wird nichts aufgenommen oder gesendet.</p>
+    <button type="button" id="stimme-knopf">Stimme testen</button>
+    <dl class="ergebnisse">
+      <div>
+        <dt>Deutsche Stimmen auf diesem Rechner</dt>
+        <dd id="ergebnis-stimmen" aria-live="polite">Noch offen</dd>
+      </div>
+      <div>
+        <dt>Deutsche Stimmen aus dem Netz</dt>
+        <dd id="ergebnis-stimmen-netz">Noch offen</dd>
+      </div>
+      <div>
+        <dt>Stimme ausgegeben</dt>
+        <dd id="ergebnis-stimme" aria-live="polite">Noch nicht geprüft</dd>
+      </div>
+      <div>
+        <dt>Spracherkennung der Webansicht vorhanden</dt>
+        <dd id="ergebnis-erkennung">Noch offen</dd>
+      </div>
+    </dl>
+    <p class="hinweis">Die Spracherkennung wird nicht gestartet, weil sie Ton ins Netz schicken kann. Geprüft wird nur, ob es sie gibt.</p>
+  </section>
+
   <script src="taskpane.js"></script>
 </body>
 </html>

@@ -314,7 +314,91 @@
     stoppeMikrofon("");
   }
 
+  /* Stimme und Spracherkennung: nur prüfen, was da ist. Die Spracherkennung wird nicht gestartet, weil sie Ton ins Netz schicken kann. */
+
+  function stimmenListe() {
+    var ausgabe = window.speechSynthesis;
+    if (!ausgabe || typeof ausgabe.getVoices !== "function") {
+      return null;
+    }
+    return ausgabe.getVoices() || [];
+  }
+
+  function istDeutsch(stimme) {
+    return Boolean(stimme && stimme.lang && stimme.lang.toLowerCase().indexOf("de") === 0);
+  }
+
+  function zeigeStimmen() {
+    var alle = stimmenListe();
+    var lokal = [];
+    var netz = [];
+    var i;
+    if (alle === null) {
+      schreibe("ergebnis-stimmen", "Nein (keine Sprachausgabe in dieser Webansicht)");
+      schreibe("ergebnis-stimmen-netz", "Nicht prüfbar");
+      return;
+    }
+    for (i = 0; i < alle.length; i += 1) {
+      if (!istDeutsch(alle[i])) {
+        continue;
+      }
+      if (alle[i].localService) {
+        lokal.push(alle[i].name);
+      } else {
+        netz.push(alle[i].name);
+      }
+    }
+    schreibe("ergebnis-stimmen", lokal.length ? lokal.join(", ") : "Keine");
+    schreibe("ergebnis-stimmen-netz", netz.length ? netz.join(", ") : "Keine");
+  }
+
+  function testeStimme() {
+    var ausgabe = window.speechSynthesis;
+    var alle = stimmenListe();
+    var stimme = null;
+    var satz;
+    var i;
+    if (!ausgabe || alle === null || typeof window.SpeechSynthesisUtterance !== "function") {
+      schreibe("ergebnis-stimme", "Nein (keine Sprachausgabe in dieser Webansicht)");
+      return;
+    }
+    for (i = 0; i < alle.length; i += 1) {
+      if (alle[i].localService && istDeutsch(alle[i])) {
+        stimme = alle[i];
+        break;
+      }
+    }
+    if (!stimme) {
+      schreibe("ergebnis-stimme", "Nein (keine deutsche Stimme auf diesem Rechner)");
+      return;
+    }
+    satz = new window.SpeechSynthesisUtterance("Das ist ein Test der Stimme.");
+    satz.voice = stimme;
+    satz.lang = stimme.lang;
+    satz.onend = function () {
+      schreibe("ergebnis-stimme", "Ja, mit " + stimme.name + ". Ob sie zu hören war, bitte in die Testliste eintragen.");
+    };
+    satz.onerror = function () {
+      schreibe("ergebnis-stimme", "Nein (Fehler bei der Ausgabe)");
+    };
+    schreibe("ergebnis-stimme", "Spricht gerade");
+    ausgabe.cancel();
+    ausgabe.speak(satz);
+  }
+
+  function zeigeErkennung() {
+    var da = typeof window.SpeechRecognition === "function" || typeof window.webkitSpeechRecognition === "function";
+    schreibe("ergebnis-erkennung", da ? "Ja (vorhanden, nicht gestartet)" : "Nein");
+  }
+
   /* Start */
+
+  zeigeErkennung();
+  zeigeStimmen();
+  if (window.speechSynthesis && "onvoiceschanged" in window.speechSynthesis) {
+    window.speechSynthesis.onvoiceschanged = zeigeStimmen;
+  }
+  el("stimme-knopf").addEventListener("click", testeStimme);
 
   el("mikrofon-knopf").addEventListener("click", function () {
     if (mikrofon) {
