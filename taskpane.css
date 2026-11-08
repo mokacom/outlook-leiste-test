@@ -1,0 +1,155 @@
+/* Seitenleisten-Test: schlicht, Systemschrift, Farben aus DESIGN.md. Keine Karten, keine Schatten, keine Pillen. */
+
+html {
+  background: #F5F4F0;
+}
+
+body {
+  margin: 0;
+  padding: 14px 14px 28px;
+  background: #F5F4F0;
+  color: #1F1A0A;
+  font-family: system-ui, "Segoe UI", -apple-system, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.45;
+  /* Laut Microsoft bleibt die Bildlaufleiste in WebView2 sonst bis zum Überfahren verborgen. */
+  overflow-y: scroll;
+}
+
+h1 {
+  margin: 0 0 4px;
+  color: #0E2430;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+h2 {
+  margin: 0 0 6px;
+  color: #0E2430;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+p {
+  margin: 0 0 8px;
+}
+
+header {
+  padding-bottom: 12px;
+}
+
+.verbindung {
+  margin: 0;
+  color: #7A5F17;
+  font-weight: 600;
+}
+
+section {
+  padding: 12px 0;
+  border-top: 1px solid #0E2430;
+}
+
+dl {
+  margin: 0;
+}
+
+dt {
+  color: #7A5F17;
+  font-size: 13px;
+}
+
+dd {
+  margin: 0;
+}
+
+.block dd {
+  margin-bottom: 8px;
+  overflow-wrap: anywhere;
+}
+
+.block dd:last-child {
+  margin-bottom: 0;
+}
+
+.ergebnisse > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 5px 0;
+  border-bottom: 1px solid #D9D5CB;
+}
+
+.ergebnisse > div:last-child {
+  border-bottom: 0;
+}
+
+.ergebnisse + .block {
+  margin-top: 5px;
+  padding-top: 10px;
+  border-top: 1px solid #D9D5CB;
+}
+
+.ergebnisse dt {
+  flex: 1 1 0;
+  padding-right: 12px;
+  color: #1F1A0A;
+  font-size: 14px;
+}
+
+.ergebnisse dd {
+  flex: 0 0 auto;
+  max-width: 60%;
+  font-weight: 700;
+  text-align: right;
+}
+
+.hinweis {
+  margin: 8px 0 0;
+  font-size: 13px;
+}
+
+.hinweis:empty {
+  display: none;
+}
+
+button {
+  padding: 8px 12px;
+  border: 1px solid #0E2430;
+  border-radius: 4px;
+  background: #0E2430;
+  color: #F5F4F0;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #F5F4F0;
+  color: #0E2430;
+}
+
+button:focus-visible {
+  outline: 2px solid #7A5F17;
+  outline-offset: 2px;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.pegel {
+  height: 14px;
+  margin: 12px 0 6px;
+  overflow: hidden;
+  border: 1px solid #0E2430;
+  border-radius: 4px;
+  background: #F5F4F0;
+}
+
+.pegel-balken {
+  width: 0;
+  height: 100%;
+  background: #0E2430;
+}

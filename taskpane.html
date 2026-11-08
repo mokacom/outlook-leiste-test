@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Seitenleisten-Test</title>
+  <!-- Office.js muss laut Microsoft im head stehen. Das ist die einzige fremde Adresse dieser Seite. -->
+  <script src="https://officeapis.public.onecdn.static.microsoft/1/office.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="taskpane.css">
+</head>
+<body>
+  <header>
+    <h1>Seitenleisten-Test</h1>
+    <p>Test ohne KI: liest von der ausgewählten Mail nur Betreff und Absender, speichert und sendet nichts.</p>
+    <p id="verbindung" class="verbindung" role="status">Warte auf Outlook.</p>
+  </header>
+
+  <section aria-labelledby="titel-mail">
+    <h2 id="titel-mail">Ausgewählte Mail</h2>
+    <dl class="block">
+      <dt>Betreff</dt>
+      <dd id="betreff">Noch nicht gelesen</dd>
+      <dt>Absender</dt>
+      <dd id="absender">Noch nicht gelesen</dd>
+    </dl>
+  </section>
+
+  <section aria-labelledby="titel-mitgehen">
+    <h2 id="titel-mitgehen">Mitgehen und Anheften</h2>
+    <dl class="ergebnisse">
+      <div>
+        <dt>Leiste geht beim Mailwechsel mit</dt>
+        <dd id="ergebnis-mitgehen" aria-live="polite">Noch offen</dd>
+      </div>
+      <div>
+        <dt>Anheften möglich</dt>
+        <dd id="ergebnis-anheften" aria-live="polite">Noch offen</dd>
+      </div>
+      <div>
+        <dt>Öffnet ohne ausgewählte Mail</dt>
+        <dd id="ergebnis-ohne-mail">Noch offen</dd>
+      </div>
+    </dl>
+    <p class="hinweis">So prüfen Sie es: Oben in der Leiste die Stecknadel anklicken, dann eine andere Mail wählen. Schließt sich die Leiste oder fehlt die Stecknadel, lautet das Ergebnis Nein. Das kann diese Seite nicht selbst anzeigen.</p>
+    <p class="hinweis">Für die dritte Zeile: Leiste schließen, Mail mit Strg und Klick abwählen, Knopf erneut drücken.</p>
+  </section>
+
+  <section aria-labelledby="titel-postfach">
+    <h2 id="titel-postfach">Postfach</h2>
+    <dl class="ergebnisse">
+      <div>
+        <dt>Mail liegt in freigegebenem Postfach oder Ordner</dt>
+        <dd id="ergebnis-freigabe" aria-live="polite">Noch offen</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section aria-labelledby="titel-schnittstellen">
+    <h2 id="titel-schnittstellen">Schnittstellen</h2>
+    <dl class="ergebnisse">
+      <div>
+        <dt>Host</dt>
+        <dd id="host">Noch offen</dd>
+      </div>
+      <div>
+        <dt>Outlook-Art</dt>
+        <dd id="outlook-art">Noch offen</dd>
+      </div>
+      <div>
+        <dt>Plattform</dt>
+        <dd id="plattform">Noch offen</dd>
+      </div>
+      <div>
+        <dt>Version</dt>
+        <dd id="version">Noch offen</dd>
+      </div>
+    </dl>
+    <dl class="block">
+      <dt>Mailbox-Versionen unterstützt</dt>
+      <dd id="mailbox-ja">Noch offen</dd>
+      <dt>Mailbox-Versionen nicht unterstützt</dt>
+      <dd id="mailbox-nein">Noch offen</dd>
+    </dl>
+  </section>
+
+  <section aria-labelledby="titel-mikrofon">
+    <h2 id="titel-mikrofon">Mikrofon</h2>
+    <p>Zeigt nach dem Start nur den Pegel. Es wird nichts aufgenommen oder gesendet.</p>
+    <button type="button" id="mikrofon-knopf">Mikrofontest starten</button>
+    <div id="pegel" class="pegel" role="progressbar" aria-label="Mikrofonpegel" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <div id="pegel-balken" class="pegel-balken"></div>
+    </div>
+    <dl class="ergebnisse">
+      <div>
+        <dt>Mikrofon erreichbar</dt>
+        <dd id="ergebnis-mikrofon" aria-live="polite">Noch nicht geprüft</dd>
+      </div>
+    </dl>
+    <p id="mikrofon-status" class="hinweis" role="status"></p>
+  </section>
+
+  <script src="taskpane.js"></script>
+</body>
+</html>
